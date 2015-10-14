@@ -7,6 +7,7 @@ package model;
 
 import java.util.LinkedList;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -23,6 +24,7 @@ public class MemoriaCache {
         this.tamanhoBloco = tamanhoBloco;
         this.modeloMemoria = modeloMemoria;
         this.tipoMapeamento = tipoMapeamento;
+
     }
 
     public MemoriaCache() {
@@ -37,7 +39,11 @@ public class MemoriaCache {
     }
 
     public void setMemoryTrace(String memoryTrace) {
-        this.memoryTrace = memoryTrace;
+        if (memoryTrace != null) {
+            this.memoryTrace = memoryTrace;
+        } else {
+            JOptionPane.showMessageDialog(null, "Preencha o memory trace");
+        }
     }
 
     public int getTamanhoPalavra() {

@@ -20,7 +20,7 @@ import model.MemoriaCache;
 public class TelaPrincipal extends javax.swing.JFrame {
 
     Conversor conversor = new Conversor();
-    MemoriaCache memoriaCache ;//= new MemoriaCache();
+    MemoriaCache memoriaCache;//= new MemoriaCache();
     Mapeamento mapeamento = new Mapeamento();
     Memoria memoria = new Memoria();
 
@@ -37,7 +37,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }
 
     public void setMemoryTrace(JTextField memoryTrace) {
-        this.memoryTrace = memoryTrace;
+        if (memoryTrace != null) {
+            this.memoryTrace = memoryTrace;
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Preencha o memory trace");
+        }
     }
 
     /**
@@ -329,17 +333,16 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here      
-        memoriaCache = new MemoriaCache(memoryTrace.getText(),
-                                                     Integer.parseInt(palavra.getValue().toString()),
-                                                     Integer.parseInt(bloco.getSelectedItem().toString()),
-                                                     tipoEntrada.getSelection().getActionCommand(),
-                                                     tipoModelo.getSelection().getActionCommand());
-       /*memoriaCache.setMemoryTrace(memoryTrace.getText());
-        memoriaCache.setTamanhoPalavra(Integer.parseInt(palavra.getValue().toString()));
-        memoriaCache.setTamanhoBloco(Integer.parseInt(bloco.getSelectedItem().toString()));
-        memoriaCache.setModeloMemoria(tipoEntrada.getSelection().getActionCommand());
-        memoriaCache.setTipoMapeamento(tipoModelo.getSelection().getActionCommand());*/
-        mapeamento.teste(this);
+        try {
+            memoriaCache = new MemoriaCache(memoryTrace.getText(),
+                    Integer.parseInt(palavra.getValue().toString()),
+                    Integer.parseInt(bloco.getSelectedItem().toString()),
+                    tipoEntrada.getSelection().getActionCommand(),
+                    tipoModelo.getSelection().getActionCommand());
+            mapeamento.teste(this);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Preencha todos os campos");
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
