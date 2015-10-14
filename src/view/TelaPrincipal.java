@@ -8,6 +8,8 @@ package view;
 import controller.Conversor;
 import controller.Mapeamento;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
 import model.Memoria;
 import model.MemoriaCache;
 
@@ -18,9 +20,25 @@ import model.MemoriaCache;
 public class TelaPrincipal extends javax.swing.JFrame {
 
     Conversor conversor = new Conversor();
-    MemoriaCache memoriaCache = new MemoriaCache();
+    MemoriaCache memoriaCache ;//= new MemoriaCache();
     Mapeamento mapeamento = new Mapeamento();
     Memoria memoria = new Memoria();
+
+    public JTable getjTable1() {
+        return jTable1;
+    }
+
+    public void setjTable1(JTable jTable1) {
+        this.jTable1 = jTable1;
+    }
+
+    public JTextField getMemoryTrace() {
+        return memoryTrace;
+    }
+
+    public void setMemoryTrace(JTextField memoryTrace) {
+        this.memoryTrace = memoryTrace;
+    }
 
     /**
      * Creates new form TelaPrincipal
@@ -311,36 +329,17 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here      
-        memoriaCache.setMemoryTrace(memoryTrace.getText());
+        memoriaCache = new MemoriaCache(memoryTrace.getText(),
+                                                     Integer.parseInt(palavra.getValue().toString()),
+                                                     Integer.parseInt(bloco.getSelectedItem().toString()),
+                                                     tipoEntrada.getSelection().getActionCommand(),
+                                                     tipoModelo.getSelection().getActionCommand());
+       /*memoriaCache.setMemoryTrace(memoryTrace.getText());
         memoriaCache.setTamanhoPalavra(Integer.parseInt(palavra.getValue().toString()));
         memoriaCache.setTamanhoBloco(Integer.parseInt(bloco.getSelectedItem().toString()));
         memoriaCache.setModeloMemoria(tipoEntrada.getSelection().getActionCommand());
-        memoriaCache.setTipoMapeamento(tipoModelo.getSelection().getActionCommand());
-
-        String[] vetor = conversor.MemoryTraceBinario(memoryTrace.getText());
-
-        System.out.println(memoria.getBitValidade() + "\n"
-                + memoria.getTag() + "\n"
-                + memoria.getValor());
-        int count = 0;
-        for (int i = 4; i >0; i--) {
-            memoria.setBitValidade('1');
-            memoria.setTag(vetor[count].substring(0, vetor[count].length() - 2));
-            memoria.setValor(vetor[count]);
-
-            jTable1.setValueAt(memoria.getBitValidade(), 0, i);
-            jTable1.setValueAt(memoria.getTag(), 1, i);
-            jTable1.setValueAt(memoria.getValor(), 2, i);
-            count++;
-        }
-
-        /*JOptionPane.showMessageDialog(rootPane, 
-         "MemoryTrace "+memoriaCache.getMemoryTrace()
-         +"\nPalavra "+memoriaCache.getTamanhoPalavra()
-         +"\nBloco " + memoriaCache.getTamanhoBloco()
-         +"\nModelo Memoria "+ memoriaCache.getModeloMemoria()
-         +"\nTipo Mapeamento "+memoriaCache.getTipoMapeamento());*/
-
+        memoriaCache.setTipoMapeamento(tipoModelo.getSelection().getActionCommand());*/
+        mapeamento.teste(this);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
