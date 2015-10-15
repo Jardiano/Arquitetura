@@ -132,6 +132,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         bloco.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "2", "4", "8", "16", "32", "64" }));
 
+        palavra.setOpaque(false);
+
         jLabel4.setText("Tipo entrada");
 
         jButton1.setText("Executar");
@@ -149,6 +151,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
 
         jButton2.setText("Limpar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -329,6 +336,17 @@ public class TelaPrincipal extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        System.out.println(memoryTrace.getText());
+        memoryTrace.setText("Limpo");
+        System.out.println(memoryTrace.getText());
+        /*palavra.setValue(0);
+        bloco.setSelectedIndex(0);
+        tipoEntrada.clearSelection();
+        tipoModelo.clearSelection();
+        jTable1.clearSelection();*/
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
