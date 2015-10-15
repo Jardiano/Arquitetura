@@ -152,7 +152,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"Bit de Validade", null, null, null, null},
+                {"Bit de Validade", "0", "0", "0", "0"},
                 {"Tag", null, null, null, null},
                 {"Valor", null, null, null, null}
             },
@@ -283,9 +283,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         );
         jInternalFrame1Layout.setVerticalGroup(
             jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jInternalFrame1Layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(374, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -328,6 +326,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
             mapeamento.MapeamentoDireto(this);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Preencha todos os campos");
+            e.printStackTrace();
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 

@@ -23,8 +23,6 @@ public class Mapeamento {
     }
 
     public void setValorMapeamentoDireto(String vetor, int i, JTable tabela) {
-        vetor = conversor.AlteraTamanhoPalavra(vetor);
-
         memoria.setBitValidade('1');
         memoria.setTag(vetor.substring(0, vetor.length() - 2));
         memoria.setValor(vetor);
@@ -41,22 +39,17 @@ public class Mapeamento {
         String[] vetor = conversor.MemoryTraceBinario(tela.getMemoryTrace().getText());
 
         for (int i = 0; i < vetor.length; i++) {
-            memoria.setBitValidade('1');
-            memoria.setTag(vetor[i].substring(0, vetor[i].length() - 2));
-            memoria.setValor(vetor[i]);
-
+            vetor[i] = conversor.AlteraTamanhoPalavra(vetor[i]);
+            
             if (vetor[i].endsWith("00")) {
-                setValorMapeamentoDireto(vetor[i], 0, tabela);
+                setValorMapeamentoDireto(vetor[i], 4, tabela);
             } else if (vetor[i].endsWith("01")) {
-                setValorMapeamentoDireto(vetor[i], 1, tabela);
+                setValorMapeamentoDireto(vetor[i], 3, tabela);
             } else if (vetor[i].endsWith("10")) {
                 setValorMapeamentoDireto(vetor[i], 2, tabela);
             } else if (vetor[i].endsWith("11")) {
-                setValorMapeamentoDireto(vetor[i], 3, tabela);
+                setValorMapeamentoDireto(vetor[i], 1, tabela);
             }
-            /*tabela.setValueAt(memoria.getBitValidade(), 0, i);
-             tabela.setValueAt(memoria.getTag(), 1, i);
-             tabela.setValueAt(memoria.getValor(), 2, i);*/
         }
 
         tela.setjTable1(tabela);
