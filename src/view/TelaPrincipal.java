@@ -161,29 +161,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
         });
         jTable1.setMinimumSize(new java.awt.Dimension(100, 60));
         jScrollPane1.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setHeaderValue("Title 1");
-            jTable1.getColumnModel().getColumn(1).setHeaderValue("Title 2");
-            jTable1.getColumnModel().getColumn(2).setHeaderValue("Title 3");
-            jTable1.getColumnModel().getColumn(3).setHeaderValue("Title 4");
-            jTable1.getColumnModel().getColumn(4).setHeaderValue("Title 5");
-        }
 
         jLabel5.setText("Modelo da memória");
 
@@ -299,7 +285,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
             jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jInternalFrame1Layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(310, Short.MAX_VALUE))
+                .addContainerGap(374, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -339,7 +325,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                     Integer.parseInt(bloco.getSelectedItem().toString()),
                     tipoEntrada.getSelection().getActionCommand(),
                     tipoModelo.getSelection().getActionCommand());
-            mapeamento.teste(this);
+            mapeamento.MapeamentoDireto(this);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Preencha todos os campos");
         }
