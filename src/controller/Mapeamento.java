@@ -5,7 +5,6 @@
  */
 package controller;
 
-import com.sun.deploy.panel.JreTableModel;
 import javax.swing.JTable;
 import javax.swing.table.TableModel;
 import model.Memoria;
@@ -24,6 +23,11 @@ public class Mapeamento {
     }
 
     public void setValorMapeamentoDireto(String vetor, int i, JTable tabela) {
+        if (vetor.length() < 8) {
+            while (vetor.length() < 8) {
+                vetor = "0".concat(vetor);
+            }
+        }
         memoria.setBitValidade('1');
         memoria.setTag(vetor.substring(0, vetor.length() - 2));
         memoria.setValor(vetor);
@@ -39,9 +43,6 @@ public class Mapeamento {
         tabela.setModel(modelo);
         String[] vetor = conversor.MemoryTraceBinario(tela.getMemoryTrace().getText());
 
-        /*System.out.println(memoria.getBitValidade() + "\n"
-         + memoria.getTag() + "\n"
-         + memoria.getValor());*/
         for (int i = 0; i < vetor.length; i++) {
             memoria.setBitValidade('1');
             memoria.setTag(vetor[i].substring(0, vetor[i].length() - 2));
@@ -60,9 +61,8 @@ public class Mapeamento {
              tabela.setValueAt(memoria.getTag(), 1, i);
              tabela.setValueAt(memoria.getValor(), 2, i);*/
         }
-        
+
         tela.setjTable1(tabela);
-  
 
     }
 
