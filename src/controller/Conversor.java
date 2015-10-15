@@ -14,17 +14,28 @@ import model.MemoriaCache;
  */
 public class Conversor {
 
-    private MemoriaCache memoriaCache ;
+    public Conversor() {
+
+    }
+
+    public String AlteraTamanhoPalavra(String palavra) {
+        if (palavra.length() < 8) {
+            while (palavra.length() < 8) {
+                palavra = "0".concat(palavra);
+            }
+        }
+        return palavra;
+    }
 
     public String[] MemoryTraceBinario(String memoryTrace) {
         String[] vetorMemoria;
         vetorMemoria = memoryTrace.split(",");
-        
-        for(int i=0;i<vetorMemoria.length;i++){
+
+        for (int i = 0; i < vetorMemoria.length; i++) {
             vetorMemoria[i] = StringBinaria(vetorMemoria[i]);
         }
-       
-       return vetorMemoria;
+
+        return vetorMemoria;
 
     }
 
@@ -34,8 +45,8 @@ public class Conversor {
 
         return bin;
     }
-    
-    public String UltimoBit(String strBin){
+
+    public String UltimoBit(String strBin) {
         String bitFinal = strBin.substring(strBin.length() - 1);
         return bitFinal;
     }

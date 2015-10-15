@@ -23,11 +23,8 @@ public class Mapeamento {
     }
 
     public void setValorMapeamentoDireto(String vetor, int i, JTable tabela) {
-        if (vetor.length() < 8) {
-            while (vetor.length() < 8) {
-                vetor = "0".concat(vetor);
-            }
-        }
+        vetor = conversor.AlteraTamanhoPalavra(vetor);
+
         memoria.setBitValidade('1');
         memoria.setTag(vetor.substring(0, vetor.length() - 2));
         memoria.setValor(vetor);
