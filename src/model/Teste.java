@@ -26,10 +26,11 @@ public class Teste {
         //System.out.println(conversor.StringBinaria(numero));
         //System.out.println(conversor.UltimoBit(conversor.StringBinaria(numero)));
         
-        for(int i=0;i<vetMemory.length;i++){
-            System.out.println(vetMemory[i]);
-            
-        }
+       conversor.memoryTraceBinario("2");
+       String b = Integer.toBinaryString(2);
+       
+        String a=conversor.alteraTamanhoPalavra(b);
+        System.out.println(a);
         
 
     }

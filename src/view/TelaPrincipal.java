@@ -55,7 +55,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     public void limparTabela() {
 
-
         jTable1.setValueAt(0, 0, 4);
         jTable1.setValueAt(" ", 1, 4);
         jTable1.setValueAt(" ", 2, 4);
@@ -359,6 +358,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 mapeamento.mapeamentoDireto(this);
             } else if (tipoAssociativa.isSelected()) {
                 mapeamento.mapeamentoTotalmenteAssociativa(this);
+            } else if (associativaConjunto.isSelected()) {
+                mapeamento.mapeamentoAssociativaConjunto(this);
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Preencha todos os campos");
@@ -374,19 +375,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         tipoEntrada.clearSelection();
         tipoModelo.clearSelection();
         limparTabela();
-
-        /*  jTable1.setValueAt(1, 0, 3);
-         jTable1.setValueAt(" ", 1, 3);
-         jTable1.setValueAt(" ", 2,3);
-            
-         jTable1.setValueAt(1, 0, 2);
-         jTable1.setValueAt(" ", 1, 2);
-         jTable1.setValueAt(" ", 2, 2);
-            
-         jTable1.setValueAt(1, 0, 1);
-         jTable1.setValueAt(" ", 1, 1);
-         jTable1.setValueAt(" ", 2, 1);*/
-
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
