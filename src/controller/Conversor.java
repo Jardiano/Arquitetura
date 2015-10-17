@@ -18,7 +18,7 @@ public class Conversor {
 
     }
 
-    public String AlteraTamanhoPalavra(String palavra) {
+    public String alteraTamanhoPalavra(String palavra) {
         if (palavra.length() < 8) {
             while (palavra.length() < 8) {
                 palavra = "0".concat(palavra);
@@ -27,26 +27,26 @@ public class Conversor {
         return palavra;
     }
 
-    public String[] MemoryTraceBinario(String memoryTrace) {
+    public String[] memoryTraceBinario(String memoryTrace) {
         String[] vetorMemoria;
         vetorMemoria = memoryTrace.split(",");
 
         for (int i = 0; i < vetorMemoria.length; i++) {
-            vetorMemoria[i] = StringBinaria(vetorMemoria[i]);
+            vetorMemoria[i] = stringBinaria(vetorMemoria[i]);
         }
 
         return vetorMemoria;
 
     }
 
-    public String StringBinaria(String strNumero) {
+    public String stringBinaria(String strNumero) {
         int val = Integer.parseInt(strNumero);
         String bin = Integer.toBinaryString(val);
 
         return bin;
     }
 
-    public String UltimoBit(String strBin) {
+    public String ultimoBit(String strBin) {
         String bitFinal = strBin.substring(strBin.length() - 1);
         return bitFinal;
     }

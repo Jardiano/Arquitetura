@@ -32,15 +32,22 @@ public class Mapeamento {
         tabela.setValueAt(memoria.getValor(), 2, i);
     }
 
-    public void MapeamentoDireto(TelaPrincipal tela) {
+    public void setValorMapeamento(String vetor) {
+        memoria.setBitValidade('1');
+        memoria.setTag(vetor.substring(0, vetor.length() - 2));
+        memoria.setValor(vetor);
+
+    }
+
+    public void mapeamentoDireto(TelaPrincipal tela) {
         TableModel modelo = tela.getjTable1().getModel();
         JTable tabela = tela.getjTable1();
         tabela.setModel(modelo);
-        String[] vetor = conversor.MemoryTraceBinario(tela.getMemoryTrace().getText());
+        String[] vetor = conversor.memoryTraceBinario(tela.getMemoryTrace().getText());
 
         for (int i = 0; i < vetor.length; i++) {
-            vetor[i] = conversor.AlteraTamanhoPalavra(vetor[i]);
-            
+            vetor[i] = conversor.alteraTamanhoPalavra(vetor[i]);
+
             if (vetor[i].endsWith("00")) {
                 setValorMapeamentoDireto(vetor[i], 4, tabela);
             } else if (vetor[i].endsWith("01")) {
@@ -52,7 +59,31 @@ public class Mapeamento {
             }
         }
 
-        tela.setjTable1(tabela);
+        // tela.setjTable1(tabela);
+    }
+
+    public void mapeamentoTotalmenteAssociativa(TelaPrincipal tela) {
+        TableModel modelo = tela.getjTable1().getModel();
+        JTable tabela = tela.getjTable1();
+        tabela.setModel(modelo);
+        String[] vetor = conversor.memoryTraceBinario(tela.getMemoryTrace().getText());
+        int j = 4;
+        for (int i = 0; i < vetor.length; i++) {
+            vetor[i] = conversor.alteraTamanhoPalavra(vetor[i]);
+            if (j >= 0) {
+
+                setValorMapeamentoDireto(vetor[i], j, tabela);
+//                tabela.setValueAt(memoria.getBitValidade(), 0, j);
+//                tabela.setValueAt(memoria.getTag(), 1, j);
+//                tabela.setValueAt(memoria.getValor(), 2, j);
+
+                j--;
+            }
+            if (j == 0) {
+                j = 4;
+            }
+            tela.setjTable1(tabela);
+        }
 
     }
 

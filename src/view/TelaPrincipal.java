@@ -7,6 +7,7 @@ package view;
 
 import controller.Conversor;
 import controller.Mapeamento;
+import javax.swing.ButtonModel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -42,6 +43,34 @@ public class TelaPrincipal extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(rootPane, "Preencha o memory trace");
         }
+    }
+
+    public void setConstMemoriaCache() {
+        memoriaCache = new MemoriaCache(memoryTrace.getText(),
+                Integer.parseInt(palavra.getValue().toString()),
+                Integer.parseInt(bloco.getSelectedItem().toString()),
+                tipoEntrada.getSelection().getActionCommand(),
+                tipoModelo.getSelection().getActionCommand());
+    }
+
+    public void limparTabela() {
+
+
+        jTable1.setValueAt(0, 0, 4);
+        jTable1.setValueAt(" ", 1, 4);
+        jTable1.setValueAt(" ", 2, 4);
+
+        jTable1.setValueAt(0, 0, 3);
+        jTable1.setValueAt(" ", 1, 3);
+        jTable1.setValueAt(" ", 2, 3);
+
+        jTable1.setValueAt(0, 0, 2);
+        jTable1.setValueAt(" ", 1, 2);
+        jTable1.setValueAt(" ", 2, 2);
+
+        jTable1.setValueAt(0, 0, 1);
+        jTable1.setValueAt(" ", 1, 1);
+        jTable1.setValueAt(" ", 2, 1);
     }
 
     /**
@@ -325,12 +354,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here      
         try {
-            memoriaCache = new MemoriaCache(memoryTrace.getText(),
-                    Integer.parseInt(palavra.getValue().toString()),
-                    Integer.parseInt(bloco.getSelectedItem().toString()),
-                    tipoEntrada.getSelection().getActionCommand(),
-                    tipoModelo.getSelection().getActionCommand());
-            mapeamento.MapeamentoDireto(this);
+            setConstMemoriaCache();
+            if (mapeamentoDireto.isSelected()) {
+                mapeamento.mapeamentoDireto(this);
+            } else if (tipoAssociativa.isSelected()) {
+                mapeamento.mapeamentoTotalmenteAssociativa(this);
+            }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Preencha todos os campos");
             e.printStackTrace();
@@ -338,14 +367,26 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        System.out.println(memoryTrace.getText());
-        memoryTrace.setText("Limpo");
-        System.out.println(memoryTrace.getText());
-        /*palavra.setValue(0);
+
+        memoryTrace.setText("");
+        palavra.setValue(0);
         bloco.setSelectedIndex(0);
         tipoEntrada.clearSelection();
         tipoModelo.clearSelection();
-        jTable1.clearSelection();*/
+        limparTabela();
+
+        /*  jTable1.setValueAt(1, 0, 3);
+         jTable1.setValueAt(" ", 1, 3);
+         jTable1.setValueAt(" ", 2,3);
+            
+         jTable1.setValueAt(1, 0, 2);
+         jTable1.setValueAt(" ", 1, 2);
+         jTable1.setValueAt(" ", 2, 2);
+            
+         jTable1.setValueAt(1, 0, 1);
+         jTable1.setValueAt(" ", 1, 1);
+         jTable1.setValueAt(" ", 2, 1);*/
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
