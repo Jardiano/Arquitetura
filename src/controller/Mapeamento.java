@@ -32,33 +32,55 @@ public class Mapeamento {
         tabela.setValueAt(memoria.getValor(), 2, i);
     }
 
-    public void mapeamentoDireto(TelaPrincipal tela) {
+    public String[] setValorVetor(TelaPrincipal tela) {
+        String[] vetor = conversor.memoryTraceBinario(tela.getMemoryTrace().getText());
+        return vetor;
+    }
+
+    public String[] setValorVetorEntrada(TelaPrincipal tela) {
+        String[] vetor = conversor.memoryTraceEntrada(tela.getMemoryTrace().getText());
+        return vetor;
+    }
+
+    public JTable setValorTabela(TelaPrincipal tela) {
         TableModel modelo = tela.getjTable1().getModel();
         JTable tabela = tela.getjTable1();
         tabela.setModel(modelo);
-        String[] vetor = conversor.memoryTraceBinario(tela.getMemoryTrace().getText());
+        return tabela;
+    }
+
+    public void countMiss(int i) {
+        i++;
+    }
+
+    public void mapeamentoDireto(TelaPrincipal tela) {
+        JTable tabela = setValorTabela(tela);
+        String[] vetor = setValorVetor(tela);
+        String[] vetorEntrada = setValorVetorEntrada(tela);
 
         for (int i = 0; i < vetor.length; i++) {
             vetor[i] = conversor.alteraTamanhoPalavra(vetor[i]);
 
             if (vetor[i].endsWith("00")) {
                 setValorMapeamento(vetor[i], 4, tabela);
+                tabela.setValueAt(vetorEntrada[i], 3, 4);
             } else if (vetor[i].endsWith("01")) {
                 setValorMapeamento(vetor[i], 3, tabela);
+                tabela.setValueAt(vetorEntrada[i], 3, 3);
             } else if (vetor[i].endsWith("10")) {
                 setValorMapeamento(vetor[i], 2, tabela);
+                tabela.setValueAt(vetorEntrada[i], 3, 2);
             } else if (vetor[i].endsWith("11")) {
                 setValorMapeamento(vetor[i], 1, tabela);
+                tabela.setValueAt(vetorEntrada[i], 3, 1);
             }
         }
-        //tela.setjTable1(tabela);
+        tela.setjTable1(tabela);
     }
 
     public void mapeamentoTotalmenteAssociativa(TelaPrincipal tela) {
-        TableModel modelo = tela.getjTable1().getModel();
-        JTable tabela = tela.getjTable1();
-        tabela.setModel(modelo);
-        String[] vetor = conversor.memoryTraceBinario(tela.getMemoryTrace().getText());
+        JTable tabela = setValorTabela(tela);
+        String[] vetor = setValorVetor(tela);
         int j = 4;
         for (int i = 0; i < vetor.length; i++) {
             vetor[i] = conversor.alteraTamanhoPalavra(vetor[i]);
@@ -69,16 +91,14 @@ public class Mapeamento {
             if (j == 0) {
                 j = 4;
             }
-            //tela.setjTable1(tabela);
+            tela.setjTable1(tabela);
         }
 
     }
 
     public void mapeamentoAssociativaConjunto(TelaPrincipal tela) {
-        TableModel modelo = tela.getjTable1().getModel();
-        JTable tabela = tela.getjTable1();
-        tabela.setModel(modelo);
-        String[] vetor = conversor.memoryTraceBinario(tela.getMemoryTrace().getText());
+        JTable tabela = setValorTabela(tela);
+        String[] vetor = setValorVetor(tela);
         int map0 = 4;
         int map1 = 2;
         for (int i = 0; i < vetor.length; i++) {

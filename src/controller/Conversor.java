@@ -36,7 +36,13 @@ public class Conversor {
         }
 
         return vetorMemoria;
+    }
 
+    public String[] memoryTraceEntrada(String memoryTrace) {
+        String[] vetorMemoria;
+        vetorMemoria = memoryTrace.split(",");
+        
+        return vetorMemoria;
     }
 
     public String stringBinaria(String strNumero) {
