@@ -19,24 +19,24 @@ import model.MemoriaCache;
  * @author Administrator
  */
 public class TelaPrincipal extends javax.swing.JFrame {
-
+    
     Conversor conversor = new Conversor();
     MemoriaCache memoriaCache;//= new MemoriaCache();
     Mapeamento mapeamento = new Mapeamento();
     Memoria memoria = new Memoria();
-
+    
     public JTable getjTable1() {
         return jTable1;
     }
-
+    
     public void setjTable1(JTable jTable1) {
         this.jTable1 = jTable1;
     }
-
+    
     public JTextField getMemoryTrace() {
         return memoryTrace;
     }
-
+    
     public void setMemoryTrace(JTextField memoryTrace) {
         if (memoryTrace != null) {
             this.memoryTrace = memoryTrace;
@@ -44,7 +44,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "Preencha o memory trace");
         }
     }
-
+    
     public void setConstMemoriaCache() {
         memoriaCache = new MemoriaCache(memoryTrace.getText(),
                 Integer.parseInt(palavra.getValue().toString()),
@@ -52,24 +52,33 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 tipoEntrada.getSelection().getActionCommand(),
                 tipoModelo.getSelection().getActionCommand());
     }
-
+    
     public void limparTabela() {
-
+        
         jTable1.setValueAt(0, 0, 4);
         jTable1.setValueAt(" ", 1, 4);
         jTable1.setValueAt(" ", 2, 4);
-
+        jTable1.setValueAt(" ", 3, 4);
+        
         jTable1.setValueAt(0, 0, 3);
         jTable1.setValueAt(" ", 1, 3);
         jTable1.setValueAt(" ", 2, 3);
-
+        jTable1.setValueAt(" ", 3, 3);
+        
         jTable1.setValueAt(0, 0, 2);
         jTable1.setValueAt(" ", 1, 2);
         jTable1.setValueAt(" ", 2, 2);
-
+        jTable1.setValueAt(" ", 3, 2);
+        
         jTable1.setValueAt(0, 0, 1);
         jTable1.setValueAt(" ", 1, 1);
         jTable1.setValueAt(" ", 2, 1);
+        jTable1.setValueAt(" ", 3, 1);
+        
+        valorHit.setText("0");
+        valorMiss.setText("0");
+        mapeamento.setCountHit(0);
+        mapeamento.setCountHit(0);
     }
 
     /**
@@ -112,8 +121,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
+        valorMiss = new javax.swing.JLabel();
+        valorHit = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -194,7 +203,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 {"Bit de Validade", "0", "0", "0", "0"},
                 {"Tag", null, null, null, null},
                 {"Valor", null, null, null, null},
-                {"Número Inserido", null, null, null, null}
+                {"Número Inserido", "\"\"", "\"\"", "\"\"", "\"\""}
             },
             new String [] {
                 "", "Slot 3", "Slot 2", "Slot 1", "Slot 0"
@@ -217,9 +226,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jLabel7.setText("Cache Hit:");
 
-        jLabel8.setText("0");
+        valorMiss.setText("0");
 
-        jLabel9.setText("0");
+        valorHit.setText("0");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -267,8 +276,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
                             .addComponent(jLabel7))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel9)
-                            .addComponent(jLabel8))
+                            .addComponent(valorHit)
+                            .addComponent(valorMiss))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -327,11 +336,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(jLabel8))
+                    .addComponent(valorMiss))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(jLabel9))
+                    .addComponent(valorHit))
                 .addGap(29, 29, 29))
         );
 
@@ -392,14 +401,17 @@ public class TelaPrincipal extends javax.swing.JFrame {
             } else if (associativaConjunto.isSelected()) {
                 mapeamento.mapeamentoAssociativaConjunto(this);
             }
+            valorHit.setText("" + mapeamento.getCountHit());
+            valorMiss.setText("" + mapeamento.getCountMiss());
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Preencha todos os campos");
+            limparTabela();
             e.printStackTrace();
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-
+        
         memoryTrace.setText("");
         palavra.setValue(0);
         bloco.setSelectedIndex(0);
@@ -458,8 +470,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
@@ -470,5 +480,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JRadioButton tipoAssociativa;
     private javax.swing.ButtonGroup tipoEntrada;
     private javax.swing.ButtonGroup tipoModelo;
+    private javax.swing.JLabel valorHit;
+    private javax.swing.JLabel valorMiss;
     // End of variables declaration//GEN-END:variables
 }

@@ -16,10 +16,27 @@ import view.TelaPrincipal;
  */
 public class Mapeamento {
 
-    Conversor conversor = new Conversor();
-    Memoria memoria = new Memoria();
+    private final Conversor conversor = new Conversor();
+    private Memoria memoria = new Memoria();
+    private int countHit = 0, countMiss = 0;
 
     public Mapeamento() {
+    }
+
+    public int getCountHit() {
+        return countHit;
+    }
+
+    public void setCountHit(int countHit) {
+        this.countHit = countHit;
+    }
+
+    public int getCountMiss() {
+        return countMiss;
+    }
+
+    public void setCountMiss(int countMiss) {
+        this.countMiss = countMiss;
     }
 
     public void setValorMapeamento(String vetor, int i, JTable tabela) {
@@ -49,8 +66,18 @@ public class Mapeamento {
         return tabela;
     }
 
-    public void countMiss(int i) {
-        i++;
+    public void countMissHit(JTable tabela, String valor, int linha, int coluna) {
+        String comparador = tabela.getValueAt(linha, coluna).toString();
+        if (comparador.equals(valor)) {
+            System.out.println("Valor:" + tabela.getValueAt(linha, coluna)
+                    + "\nHit:" + valor);
+            countHit += 1;
+        } else {
+            System.out.println("Valor:" + tabela.getValueAt(linha, coluna)
+                    + " \nMiss:" + valor);
+
+            countMiss += 1;
+        }
     }
 
     public void mapeamentoDireto(TelaPrincipal tela) {
@@ -62,18 +89,28 @@ public class Mapeamento {
             vetor[i] = conversor.alteraTamanhoPalavra(vetor[i]);
 
             if (vetor[i].endsWith("00")) {
+
+                countMissHit(tabela, vetorEntrada[i], 3, 4);
                 setValorMapeamento(vetor[i], 4, tabela);
                 tabela.setValueAt(vetorEntrada[i], 3, 4);
+
             } else if (vetor[i].endsWith("01")) {
+                countMissHit(tabela, vetorEntrada[i], 3, 3);
                 setValorMapeamento(vetor[i], 3, tabela);
                 tabela.setValueAt(vetorEntrada[i], 3, 3);
+
             } else if (vetor[i].endsWith("10")) {
+                countMissHit(tabela, vetorEntrada[i], 3, 2);
                 setValorMapeamento(vetor[i], 2, tabela);
                 tabela.setValueAt(vetorEntrada[i], 3, 2);
+
             } else if (vetor[i].endsWith("11")) {
+                countMissHit(tabela, vetorEntrada[i], 3, 1);
                 setValorMapeamento(vetor[i], 1, tabela);
                 tabela.setValueAt(vetorEntrada[i], 3, 1);
+
             }
+
         }
         tela.setjTable1(tabela);
     }

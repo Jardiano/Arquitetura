@@ -44,6 +44,8 @@ public class Conversor {
         
         return vetorMemoria;
     }
+        
+    
 
     public String stringBinaria(String strNumero) {
         int val = Integer.parseInt(strNumero);
