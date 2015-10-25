@@ -20,10 +20,12 @@ public class Teste {
         String memoryTrace;
         memoryTrace = "0,1032,1,1033,8,9,1033,2048,2047,2046,16,1033";
 
-        String[] vetMemory = conversor.memoryTraceEntrada(memoryTrace);
-        for (int i = 0; i < vetMemory.length; i++) {
-            System.out.println(vetMemory[i]);
-        }
+//        String[] vetMemory = conversor.memoryTraceEntrada(memoryTrace);
+//        for (int i = 0; i < vetMemory.length; i++) {
+//            System.out.println(vetMemory[i]);
+//        }
+        
+        System.out.println(conversor.binarioToString("0101"));
 
     }
 }

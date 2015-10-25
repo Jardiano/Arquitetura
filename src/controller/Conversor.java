@@ -41,17 +41,26 @@ public class Conversor {
     public String[] memoryTraceEntrada(String memoryTrace) {
         String[] vetorMemoria;
         vetorMemoria = memoryTrace.split(",");
-        
+
         return vetorMemoria;
     }
-        
-    
 
     public String stringBinaria(String strNumero) {
         int val = Integer.parseInt(strNumero);
         String bin = Integer.toBinaryString(val);
 
         return bin;
+    }
+
+    public String binarioToString(String valorBinario) {
+        int valorInteiro = 0;
+        String valor;
+        // soma ao valor final o dígito binário da posição * 2 elevado ao contador da posição (começa em 0)
+        for (int i = valorBinario.length(); i > 0; i--) {
+            valorInteiro += Integer.parseInt(valorBinario.charAt(i - 1) + "") * Math.pow(2, (valorBinario.length() - i));
+        }
+        valor = Integer.toString(valorInteiro);
+        return valor;
     }
 
     public String ultimoBit(String strBin) {

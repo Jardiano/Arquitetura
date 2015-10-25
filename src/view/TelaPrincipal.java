@@ -7,7 +7,6 @@ package view;
 
 import controller.Conversor;
 import controller.Mapeamento;
-import javax.swing.ButtonModel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -19,24 +18,24 @@ import model.MemoriaCache;
  * @author Administrator
  */
 public class TelaPrincipal extends javax.swing.JFrame {
-    
+
     Conversor conversor = new Conversor();
     MemoriaCache memoriaCache;//= new MemoriaCache();
     Mapeamento mapeamento = new Mapeamento();
     Memoria memoria = new Memoria();
-    
+
     public JTable getjTable1() {
         return jTable1;
     }
-    
+
     public void setjTable1(JTable jTable1) {
         this.jTable1 = jTable1;
     }
-    
+
     public JTextField getMemoryTrace() {
         return memoryTrace;
     }
-    
+
     public void setMemoryTrace(JTextField memoryTrace) {
         if (memoryTrace != null) {
             this.memoryTrace = memoryTrace;
@@ -44,7 +43,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "Preencha o memory trace");
         }
     }
-    
+
     public void setConstMemoriaCache() {
         memoriaCache = new MemoriaCache(memoryTrace.getText(),
                 Integer.parseInt(palavra.getValue().toString()),
@@ -52,33 +51,34 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 tipoEntrada.getSelection().getActionCommand(),
                 tipoModelo.getSelection().getActionCommand());
     }
-    
+
     public void limparTabela() {
-        
+
         jTable1.setValueAt(0, 0, 4);
         jTable1.setValueAt(" ", 1, 4);
         jTable1.setValueAt(" ", 2, 4);
         jTable1.setValueAt(" ", 3, 4);
-        
+
         jTable1.setValueAt(0, 0, 3);
         jTable1.setValueAt(" ", 1, 3);
         jTable1.setValueAt(" ", 2, 3);
         jTable1.setValueAt(" ", 3, 3);
-        
+
         jTable1.setValueAt(0, 0, 2);
         jTable1.setValueAt(" ", 1, 2);
         jTable1.setValueAt(" ", 2, 2);
         jTable1.setValueAt(" ", 3, 2);
-        
+
         jTable1.setValueAt(0, 0, 1);
         jTable1.setValueAt(" ", 1, 1);
         jTable1.setValueAt(" ", 2, 1);
         jTable1.setValueAt(" ", 3, 1);
-        
+
+        mapeamento.setCountHit(0);
+        mapeamento.setCountHit(0);
         valorHit.setText("0");
         valorMiss.setText("0");
-        mapeamento.setCountHit(0);
-        mapeamento.setCountHit(0);
+
     }
 
     /**
@@ -171,9 +171,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jLabel1.setText("Memory trace");
 
-        bloco.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "2", "4", "8", "16", "32", "64" }));
+        bloco.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "4", "8", "16", "32", "64" }));
+        bloco.setEnabled(false);
 
+        palavra.setEnabled(false);
         palavra.setOpaque(false);
+        palavra.setValue(1);
 
         jLabel4.setText("Tipo entrada");
 
@@ -200,10 +203,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"Bit de Validade", "0", "0", "0", "0"},
+                {"Bit _Validade", "0", "0", "0", "0"},
                 {"Tag", null, null, null, null},
                 {"Valor", null, null, null, null},
-                {"Número Inserido", "\"\"", "\"\"", "\"\"", "\"\""}
+                {"Num_Inserido", "\"\"", "\"\"", "\"\"", "\"\""}
             },
             new String [] {
                 "", "Slot 3", "Slot 2", "Slot 1", "Slot 0"
@@ -212,13 +215,30 @@ public class TelaPrincipal extends javax.swing.JFrame {
             Class[] types = new Class [] {
                 java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
+            boolean[] canEdit = new boolean [] {
+                true, false, false, false, false
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
         });
+        jTable1.setColumnSelectionAllowed(true);
         jTable1.setMinimumSize(new java.awt.Dimension(100, 60));
+        jTable1.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(jTable1);
+        jTable1.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        if (jTable1.getColumnModel().getColumnCount() > 0) {
+            jTable1.getColumnModel().getColumn(0).setResizable(false);
+            jTable1.getColumnModel().getColumn(1).setResizable(false);
+            jTable1.getColumnModel().getColumn(1).setCellEditor(null);
+            jTable1.getColumnModel().getColumn(2).setResizable(false);
+            jTable1.getColumnModel().getColumn(4).setResizable(false);
+        }
 
         jLabel5.setText("Modelo da memória");
 
@@ -411,7 +431,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        
+
         memoryTrace.setText("");
         palavra.setValue(0);
         bloco.setSelectedIndex(0);

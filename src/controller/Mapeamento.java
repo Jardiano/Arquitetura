@@ -18,7 +18,8 @@ public class Mapeamento {
 
     private final Conversor conversor = new Conversor();
     private Memoria memoria = new Memoria();
-    private int countHit = 0, countMiss = 0;
+    private int countHit = 0,
+            countMiss = 0;
 
     public Mapeamento() {
     }
@@ -41,12 +42,24 @@ public class Mapeamento {
 
     public void setValorMapeamento(String vetor, int i, JTable tabela) {
         memoria.setBitValidade('1');
-        memoria.setTag(vetor.substring(0, vetor.length() - 2));
+        memoria.setTag(vetor);
         memoria.setValor(vetor);
 
         tabela.setValueAt(memoria.getBitValidade(), 0, i);
         tabela.setValueAt(memoria.getTag(), 1, i);
         tabela.setValueAt(memoria.getValor(), 2, i);
+        tabela.setValueAt(vetor, 3, i);
+    }
+
+    public void setValorMapeamentoAssoc(String vetor, int i, JTable tabela) {
+        memoria.setBitValidade('1');
+        memoria.setTag(vetor);
+        memoria.setValor(vetor);
+
+        tabela.setValueAt(memoria.getBitValidade(), 0, i);
+        tabela.setValueAt(memoria.getTag(), 1, i);
+        tabela.setValueAt(memoria.getValor(), 2, i);
+        tabela.setValueAt(conversor.binarioToString(vetor), 3, i);
     }
 
     public String[] setValorVetor(TelaPrincipal tela) {
@@ -78,6 +91,25 @@ public class Mapeamento {
 
             countMiss += 1;
         }
+    }
+
+    public boolean countMissHitAssoc(JTable tabela, String valor) {
+        boolean condicao = false;
+        for (int coluna = 4; coluna >= 1; coluna--) {
+            String comparador = tabela.getValueAt(3, coluna).toString();
+            if (comparador.equals(valor)) {
+                System.out.println("Valor:" + comparador
+                        + "\nHit:" + valor + "\n True");
+                condicao = true;
+                break;
+            } else {
+                System.out.println("Valor:" + comparador
+                        + "\nMiss:" + valor + "\n False");
+                condicao = false;
+            }
+        }
+        return condicao;
+
     }
 
     public void mapeamentoDireto(TelaPrincipal tela) {
@@ -122,8 +154,15 @@ public class Mapeamento {
         for (int i = 0; i < vetor.length; i++) {
             vetor[i] = conversor.alteraTamanhoPalavra(vetor[i]);
             if (j >= 0) {
-                setValorMapeamento(vetor[i], j, tabela);
-                j--;
+
+                if (countMissHitAssoc(tabela, conversor.binarioToString(vetor[i])) == true) {
+                    countHit += 1;
+                } else {
+                    countMiss += 1;
+                    setValorMapeamentoAssoc(vetor[i], j, tabela);
+                    j--;
+                }
+
             }
             if (j == 0) {
                 j = 4;
