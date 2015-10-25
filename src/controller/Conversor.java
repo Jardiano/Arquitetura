@@ -5,12 +5,9 @@
  */
 package controller;
 
-import java.util.ArrayList;
-import model.MemoriaCache;
-
 /**
  *
- * @author Administrator
+ * @author Jardiano Silva
  */
 public class Conversor {
 

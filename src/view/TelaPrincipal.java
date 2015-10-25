@@ -54,30 +54,22 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     public void limparTabela() {
 
-        jTable1.setValueAt(0, 0, 4);
-        jTable1.setValueAt(" ", 1, 4);
-        jTable1.setValueAt(" ", 2, 4);
-        jTable1.setValueAt(" ", 3, 4);
-
-        jTable1.setValueAt(0, 0, 3);
-        jTable1.setValueAt(" ", 1, 3);
-        jTable1.setValueAt(" ", 2, 3);
-        jTable1.setValueAt(" ", 3, 3);
-
-        jTable1.setValueAt(0, 0, 2);
-        jTable1.setValueAt(" ", 1, 2);
-        jTable1.setValueAt(" ", 2, 2);
-        jTable1.setValueAt(" ", 3, 2);
-
-        jTable1.setValueAt(0, 0, 1);
-        jTable1.setValueAt(" ", 1, 1);
-        jTable1.setValueAt(" ", 2, 1);
-        jTable1.setValueAt(" ", 3, 1);
-
-        mapeamento.setCountHit(0);
-        mapeamento.setCountHit(0);
+        memoryTrace.setText("");
+        palavra.setValue(1);
+        bloco.setSelectedIndex(0);
+        tipoEntrada.clearSelection();
+        tipoModelo.clearSelection();
+        mapeamento = new Mapeamento();
         valorHit.setText("0");
         valorMiss.setText("0");
+
+        for (int i = 4; i >= 1; i--) {
+            jTable1.setValueAt(0, 0, i);
+            for (int j = 1; j <= 3; j++) {
+                jTable1.setValueAt(" ", j, i);
+            }
+
+        }
 
     }
 
@@ -431,12 +423,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-
-        memoryTrace.setText("");
-        palavra.setValue(0);
-        bloco.setSelectedIndex(0);
-        tipoEntrada.clearSelection();
-        tipoModelo.clearSelection();
         limparTabela();
     }//GEN-LAST:event_jButton2ActionPerformed
 

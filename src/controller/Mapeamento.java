@@ -162,7 +162,6 @@ public class Mapeamento {
                     setValorMapeamentoAssoc(vetor[i], j, tabela);
                     j--;
                 }
-
             }
             if (j == 0) {
                 j = 4;
@@ -182,19 +181,46 @@ public class Mapeamento {
 
             if (vetor[i].endsWith("0")) {
                 if (map0 == 4) {
-                    setValorMapeamento(vetor[i], map0, tabela);
-                    map0 = 3;
+                    if (countMissHitAssoc(tabela, conversor.binarioToString(vetor[i])) == true) {
+                        countHit += 1;
+                        map0 = 4;
+                    } else {
+                        countMiss += 1;
+                        setValorMapeamentoAssoc(vetor[i], map0, tabela);
+                        map0 = 3;
+                    }
+
                 } else {
-                    setValorMapeamento(vetor[i], map0, tabela);
-                    map0 = 4;
+                    if (countMissHitAssoc(tabela, conversor.binarioToString(vetor[i])) == true) {
+                        countHit += 1;
+                        map0 = 3;
+                    } else {
+                        countMiss += 1;
+                        setValorMapeamentoAssoc(vetor[i], map0, tabela);
+                        map0 = 4;
+                    }
                 }
             } else if (vetor[i].endsWith("1")) {
                 if (map1 == 2) {
-                    setValorMapeamento(vetor[i], map1, tabela);
-                    map1 = 1;
+                    if (countMissHitAssoc(tabela, conversor.binarioToString(vetor[i])) == true) {
+                        countHit += 1;
+                        map0 = 2;
+                    } else {
+                        countMiss += 1;
+                        setValorMapeamentoAssoc(vetor[i], map1, tabela);
+                        map1 = 1;
+                    }
+
                 } else {
-                    setValorMapeamento(vetor[i], map1, tabela);
-                    map1 = 2;
+                    if (countMissHitAssoc(tabela, conversor.binarioToString(vetor[i])) == true) {
+                        countHit += 1;
+                        map0 = 1;
+                    } else {
+                        countMiss += 1;
+                        setValorMapeamentoAssoc(vetor[i], map1, tabela);
+                        map1 = 2;
+                    }
+
                 }
             }
             tela.setjTable1(tabela);

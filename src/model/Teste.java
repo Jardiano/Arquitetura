@@ -9,7 +9,7 @@ import controller.Conversor;
 
 /**
  *
- * @author Administrator
+ * @author Jardiano Silva
  */
 public class Teste {
 
