@@ -15,6 +15,14 @@ public class Conversor {
 
     }
 
+    /**
+     * Esté método recebe como parametro do tipo String com valor binário e
+     * retorna esse valor acrescido da quantidade de 0(zero)(s) necessário para
+     * o valor possui 8 bits.
+     *
+     * @param palavra String
+     * @return String - valor binário com 8 bits.
+     */
     public String alteraTamanhoPalavra(String palavra) {
         if (palavra.length() < 8) {
             while (palavra.length() < 8) {
@@ -24,6 +32,14 @@ public class Conversor {
         return palavra;
     }
 
+    /**
+     * Este método recebe uma série de valores inteiros separados por vírgula
+     * todos agrupados em uma String e retorna um vetor com os valores
+     * convertidos em binário.
+     *
+     * @param memoryTrace String
+     * @return String[] - vetor de String com valores binários
+     */
     public String[] memoryTraceBinario(String memoryTrace) {
         String[] vetorMemoria;
         vetorMemoria = memoryTrace.split(",");
@@ -35,6 +51,13 @@ public class Conversor {
         return vetorMemoria;
     }
 
+    /**
+     * Este método recebe uma série de valores inteiros separados por vírgula
+     * todos agrupados em uma String e retorna um vetor com os valores dividos
+     * por index.
+     * @param memoryTrace - String
+     * @return String[] - Valores dividos em cada index;
+     */
     public String[] memoryTraceEntrada(String memoryTrace) {
         String[] vetorMemoria;
         vetorMemoria = memoryTrace.split(",");

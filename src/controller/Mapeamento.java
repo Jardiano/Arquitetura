@@ -226,4 +226,40 @@ public class Mapeamento {
             tela.setjTable1(tabela);
         }
     }
+
+    public  void inserirLRU(int[] vetNum, int num) {
+        boolean emMemoria = false;
+
+        for (int i = 0; i < vetNum.length; i++) {
+            if (num == vetNum[i]) {
+
+                System.out.println("Valor já na memória -- HIT");
+                emMemoria = true;
+                int aux;
+                int pos = i;
+
+                System.out.println("Posição encontrada " + pos);
+
+                aux = vetNum[0];
+
+                for (int j = pos; j > 0; j--) {
+                    vetNum[j] = vetNum[j - 1];
+                }
+                vetNum[0] = num;
+
+            }
+
+        }
+
+        if (emMemoria == false) {
+
+            System.out.println("Valor  não está na memória -- Miss");
+
+            for (int j = 3; j > 0; j--) {
+                vetNum[j] = vetNum[j - 1];
+            }
+            vetNum[0] = num;
+
+        }
+    }
 }
