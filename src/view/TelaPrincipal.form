@@ -41,6 +41,7 @@
   <SubComponents>
     <Container class="javax.swing.JInternalFrame" name="jInternalFrame1">
       <Properties>
+        <Property name="toolTipText" type="java.lang.String" value=""/>
         <Property name="visible" type="boolean" value="true"/>
       </Properties>
 
@@ -263,6 +264,9 @@
                 <Property name="text" type="java.lang.String" value="FIFO"/>
                 <Property name="actionCommand" type="java.lang.String" value="fifo"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="fifoActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JRadioButton" name="lru">
               <Properties>
@@ -272,6 +276,9 @@
                 <Property name="text" type="java.lang.String" value="LRU"/>
                 <Property name="actionCommand" type="java.lang.String" value="lru"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="lruActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel1">
               <Properties>
@@ -305,7 +312,7 @@
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel4">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Tipo entrada"/>
+                <Property name="text" type="java.lang.String" value="Tipo de entrada"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="jButton1">
@@ -384,9 +391,7 @@
                         </Column>
                         <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
                           <Title/>
-                          <Editor editor="org.netbeans.modules.form.ComponentChooserEditor">
-                            <ComponentRef name="null"/>
-                          </Editor>
+                          <Editor/>
                           <Renderer/>
                         </Column>
                         <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">

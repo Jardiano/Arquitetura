@@ -80,6 +80,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         initComponents();
     }
 
+    public void atualizaContagem() {
+        valorHit.setText("" + mapeamento.getCountHit());
+        valorMiss.setText("" + mapeamento.getCountMiss());
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -118,6 +123,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jInternalFrame1.setToolTipText("");
         jInternalFrame1.setVisible(true);
 
         jLabel3.setText("Tamanho do bloco");
@@ -156,10 +162,20 @@ public class TelaPrincipal extends javax.swing.JFrame {
         tipoEntrada.add(fifo);
         fifo.setText("FIFO");
         fifo.setActionCommand("fifo");
+        fifo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fifoActionPerformed(evt);
+            }
+        });
 
         tipoEntrada.add(lru);
         lru.setText("LRU");
         lru.setActionCommand("lru");
+        lru.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                lruActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Memory trace");
 
@@ -170,7 +186,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         palavra.setOpaque(false);
         palavra.setValue(1);
 
-        jLabel4.setText("Tipo entrada");
+        jLabel4.setText("Tipo de entrada");
 
         jButton1.setText("Executar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -227,7 +243,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         if (jTable1.getColumnModel().getColumnCount() > 0) {
             jTable1.getColumnModel().getColumn(0).setResizable(false);
             jTable1.getColumnModel().getColumn(1).setResizable(false);
-            jTable1.getColumnModel().getColumn(1).setCellEditor(null);
             jTable1.getColumnModel().getColumn(2).setResizable(false);
             jTable1.getColumnModel().getColumn(4).setResizable(false);
         }
@@ -406,18 +421,36 @@ public class TelaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here      
         try {
             setConstMemoriaCache();
-            if (mapeamentoDireto.isSelected()) {
-                mapeamento.mapeamentoDireto(this);
-            } else if (tipoAssociativa.isSelected()) {
-                mapeamento.mapeamentoTotalmenteAssociativa(this);
-            } else if (associativaConjunto.isSelected()) {
-                mapeamento.mapeamentoAssociativaConjunto(this);
+
+            if (fifo.isSelected()) {
+                if (mapeamentoDireto.isSelected()) {
+                    mapeamento.mapeamentoDireto(this);
+                } else if (tipoAssociativa.isSelected()) {
+                    mapeamento.mapeamentoTotalmenteAssociativa(this);
+                } else if (associativaConjunto.isSelected()) {
+                    mapeamento.mapeamentoAssociativaConjunto(this);
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "Selecione um Modelo da memória");
+                }
+
+                atualizaContagem();
+            } else if (lru.isSelected()) {
+                if (tipoAssociativa.isSelected()) {
+                    mapeamento.mapeamentoAssociativaConjunto(this);
+                } else if (associativaConjunto.isSelected()) {
+                    mapeamento.mapeamentoAssociativaConjuntoLRU(this);
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "Selecione um Modelo da memória !");
+                }
+                atualizaContagem();
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Selecione um tipo de entrada!");
             }
-            valorHit.setText("" + mapeamento.getCountHit());
-            valorMiss.setText("" + mapeamento.getCountMiss());
+
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Preencha todos os campos");
             limparTabela();
+            new TelaPrincipal();
             e.printStackTrace();
         }
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -425,6 +458,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         limparTabela();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void lruActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lruActionPerformed
+        mapeamentoDireto.setEnabled(false);
+    }//GEN-LAST:event_lruActionPerformed
+
+    private void fifoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fifoActionPerformed
+        mapeamentoDireto.setEnabled(true);
+    }//GEN-LAST:event_fifoActionPerformed
 
     /**
      * @param args the command line arguments
