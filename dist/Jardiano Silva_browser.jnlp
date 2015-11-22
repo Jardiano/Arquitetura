@@ -12,7 +12,7 @@
   </resources>
   <resources>
     <j2se version="1.6+" java-vm-args="-Djava.security.policy=applet.policy "  href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="Arquitetura.jar" size="45107" download="eager" />
+    <jar href="Arquitetura.jar" size="45111" download="eager" />
   </resources>
 <security>
   <all-permissions/>
