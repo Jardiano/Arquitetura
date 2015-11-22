@@ -7,6 +7,7 @@ package view;
 
 import controller.Conversor;
 import controller.Mapeamento;
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -17,12 +18,33 @@ import model.MemoriaCache;
  *
  * @author Administrator
  */
-public class TelaPrincipal extends javax.swing.JFrame{
+public class TelaPrincipal extends javax.swing.JFrame {
 
     Conversor conversor = new Conversor();
     MemoriaCache memoriaCache;//= new MemoriaCache();
     Mapeamento mapeamento = new Mapeamento();
     Memoria memoria = new Memoria();
+    int i = 0, j = 4;
+    int map0 = 4;
+    int map1 = 2;
+
+    public int getMap0() {
+        return map0;
+    }
+
+    public void setMap0(int map0) {
+        this.map0 = map0;
+    }
+
+    public int getMap1() {
+        return map1;
+    }
+
+    public void setMap1(int map1) {
+        this.map1 = map1;
+    }
+    
+    
 
     public JTable getjTable1() {
         return jTable1;
@@ -44,6 +66,14 @@ public class TelaPrincipal extends javax.swing.JFrame{
         }
     }
 
+    public JButton getProximo() {
+        return proximo;
+    }
+
+    public void setProximo(JButton proximo) {
+        this.proximo = proximo;
+    }
+
     public void setConstMemoriaCache() {
         memoriaCache = new MemoriaCache(memoryTrace.getText(),
                 Integer.parseInt(palavra.getValue().toString()),
@@ -60,6 +90,10 @@ public class TelaPrincipal extends javax.swing.JFrame{
         tipoEntrada.clearSelection();
         tipoModelo.clearSelection();
         mapeamento = new Mapeamento();
+        i = 0;
+        j = 4;
+        passo.setSelected(false);
+        proximo.setEnabled(false);
         valorHit.setText("0");
         valorMiss.setText("0");
 
@@ -449,22 +483,36 @@ public class TelaPrincipal extends javax.swing.JFrame{
 
             if (fifo.isSelected()) {
                 if (mapeamentoDireto.isSelected()) {
-                    mapeamento.mapeamentoDireto(this);
+                    if (passo.isSelected()) {
+                        System.out.println("Passoa-a-passo executado");
+                        mapeamento.mapeamentoDireto(this, i);
+                    } else {
+                        mapeamento.mapeamentoDireto(this);
+                    }
+
                 } else if (tipoAssociativa.isSelected()) {
-                    mapeamento.mapeamentoTotalmenteAssociativa(this);
+                    if (passo.isSelected()) {
+                        mapeamento.mapeamentoTotalmenteAssociativa(this, i, j);
+                    } else {
+                        mapeamento.mapeamentoTotalmenteAssociativa(this);
+                    }
                 } else if (associativaConjunto.isSelected()) {
-                    mapeamento.mapeamentoAssociativaConjunto(this);
+                    if (passo.isSelected()) {
+                        mapeamento.mapeamentoAssociativaConjunto(this, i,map0,map1);
+                    } else {
+                        mapeamento.mapeamentoAssociativaConjunto(this);
+                    }
                 }
 
-                atualizaContagem();
             } else if (lru.isSelected()) {
                 if (tipoAssociativa.isSelected()) {
                     mapeamento.mapeamentoAssociativaConjuntoLRU(this);
                 } else if (associativaConjunto.isSelected()) {
                     mapeamento.mapeamentoAssociativaConjuntoLRU(this);
                 }
-                atualizaContagem();
+
             }
+            atualizaContagem();
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Preencha todos os campos");
@@ -495,9 +543,25 @@ public class TelaPrincipal extends javax.swing.JFrame{
     }//GEN-LAST:event_passoActionPerformed
 
     private void proximoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_proximoActionPerformed
-        
-        
-        
+        if (mapeamentoDireto.isSelected()) {
+            i++;
+            mapeamento.mapeamentoDireto(this, i);
+
+        } else if (tipoAssociativa.isSelected()) {
+            if (j == 0) {
+                j = 4;
+            }
+            i++;
+            j--;
+            mapeamento.mapeamentoTotalmenteAssociativa(this, i, j);
+            System.out.println("Valor " + i + " Posicao " + j);
+
+        } else if (associativaConjunto.isSelected()) {
+            i++;
+            mapeamento.mapeamentoAssociativaConjunto(this, i, map0, map1);
+        }
+        atualizaContagem();
+
     }//GEN-LAST:event_proximoActionPerformed
 
     /**

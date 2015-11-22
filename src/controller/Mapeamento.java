@@ -5,6 +5,7 @@
  */
 package controller;
 
+import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.table.TableModel;
 import model.Memoria;
@@ -147,6 +148,45 @@ public class Mapeamento {
         tela.setjTable1(tabela);
     }
 
+    public void mapeamentoDireto(TelaPrincipal tela, int i) {
+        JTable tabela = setValorTabela(tela);
+        String[] vetor = setValorVetor(tela);
+        String[] vetorEntrada = setValorVetorEntrada(tela);
+
+        if (i < vetor.length) {
+            vetor[i] = conversor.alteraTamanhoPalavra(vetor[i]);
+
+            if (vetor[i].endsWith("00")) {
+
+                countMissHit(tabela, vetorEntrada[i], 3, 4);
+                setValorMapeamento(vetor[i], 4, tabela);
+                tabela.setValueAt(vetorEntrada[i], 3, 4);
+
+            } else if (vetor[i].endsWith("01")) {
+                countMissHit(tabela, vetorEntrada[i], 3, 3);
+                setValorMapeamento(vetor[i], 3, tabela);
+                tabela.setValueAt(vetorEntrada[i], 3, 3);
+
+            } else if (vetor[i].endsWith("10")) {
+                countMissHit(tabela, vetorEntrada[i], 3, 2);
+                setValorMapeamento(vetor[i], 2, tabela);
+                tabela.setValueAt(vetorEntrada[i], 3, 2);
+
+            } else if (vetor[i].endsWith("11")) {
+                countMissHit(tabela, vetorEntrada[i], 3, 1);
+                setValorMapeamento(vetor[i], 1, tabela);
+                tabela.setValueAt(vetorEntrada[i], 3, 1);
+
+            }
+
+            tela.setjTable1(tabela);
+        } else {
+            JButton botao = tela.getProximo();
+            botao.setEnabled(false);
+            tela.setProximo(botao);
+        }
+    }
+
     public void mapeamentoTotalmenteAssociativa(TelaPrincipal tela) {
         JTable tabela = setValorTabela(tela);
         String[] vetor = setValorVetor(tela);
@@ -170,6 +210,32 @@ public class Mapeamento {
             tela.setjTable1(tabela);
         }
 
+    }
+
+    public void mapeamentoTotalmenteAssociativa(TelaPrincipal tela, int i, int j) {
+        JTable tabela = setValorTabela(tela);
+        String[] vetor = setValorVetor(tela);
+
+        if (i < vetor.length) {
+            vetor[i] = conversor.alteraTamanhoPalavra(vetor[i]);
+
+            if (j >= 0) {
+
+                if (countMissHitAssoc(tabela, conversor.binarioToString(vetor[i])) == true) {
+                    countHit += 1;
+                } else {
+                    countMiss += 1;
+                    setValorMapeamentoAssoc(vetor[i], j, tabela);
+                    j--;
+                }
+            }
+
+            tela.setjTable1(tabela);
+        } else {
+            JButton botao = tela.getProximo();
+            botao.setEnabled(false);
+            tela.setProximo(botao);
+        }
     }
 
     public void mapeamentoAssociativaConjunto(TelaPrincipal tela) {
@@ -226,6 +292,74 @@ public class Mapeamento {
             }
             tela.setjTable1(tabela);
         }
+    }
+
+    public void mapeamentoAssociativaConjunto(TelaPrincipal tela, int i,int map0,int map1) {
+        JTable tabela = setValorTabela(tela);
+        String[] vetor = setValorVetor(tela);
+        
+        if (i < vetor.length) {
+        vetor[i] = conversor.alteraTamanhoPalavra(vetor[i]);
+
+            if (vetor[i].endsWith("0")) {
+                if (map0 == 4) {
+                    if (countMissHitAssoc(tabela, conversor.binarioToString(vetor[i])) == true) {
+                        countHit += 1;
+                        //map0 = 4;
+                        tela.setMap0(4);
+                    } else {
+                        countMiss += 1;
+                        setValorMapeamentoAssoc(vetor[i], map0, tabela);
+                        //map0 = 3;
+                        tela.setMap0(3);
+                    }
+
+                } else {
+                    if (countMissHitAssoc(tabela, conversor.binarioToString(vetor[i])) == true) {
+                        countHit += 1;
+                        //map0 = 3;
+                        tela.setMap0(3);
+                    } else {
+                        countMiss += 1;
+                        setValorMapeamentoAssoc(vetor[i], map0, tabela);
+                        //map0 = 4;
+                        tela.setMap0(4);
+                    }
+                }
+            } else if (vetor[i].endsWith("1")) {
+                if (map1 == 2) {
+                    if (countMissHitAssoc(tabela, conversor.binarioToString(vetor[i])) == true) {
+                        countHit += 1;
+                        //map0 = 2;
+                        tela.setMap0(2);
+                    } else {
+                        countMiss += 1;
+                        setValorMapeamentoAssoc(vetor[i], map1, tabela);
+                        //map1 = 1;
+                        tela.setMap1(1);
+                    }
+
+                } else {
+                    if (countMissHitAssoc(tabela, conversor.binarioToString(vetor[i])) == true) {
+                        countHit += 1;
+                        //map0 = 1;
+                        tela.setMap0(1);
+                    } else {
+                        countMiss += 1;
+                        setValorMapeamentoAssoc(vetor[i], map1, tabela);
+                        //map1 = 2;
+                        tela.setMap1(2);
+                    }
+
+                }
+            }
+        } else {
+            JButton botao = tela.getProximo();
+            botao.setEnabled(false);
+            tela.setProximo(botao);
+        }
+        tela.setjTable1(tabela);
+
     }
 
     public void mapeamentoAssociativaConjuntoLRU(TelaPrincipal tela) {
