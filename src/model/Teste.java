@@ -6,12 +6,20 @@
 package model;
 
 import controller.Conversor;
+import view.TelaPrincipal;
 
 /**
  *
  * @author Jardiano Silva
  */
-public class Teste {
+public class Teste extends view.JAppletFX {
+
+    @Override
+    public void initApplet() {
+        super.initApplet();
+        TelaPrincipal tela = new TelaPrincipal();
+        tela.setVisible(true);//To change body of generated methods, choose Tools | Templates.
+    }
 
     public static void inserirLRU(int[] vetNum, int num) {
         boolean emMemoria = false;
@@ -50,8 +58,9 @@ public class Teste {
     }
 
     public static void main(String[] args) {
-        // MemoriaCache memoria  = new MemoriaCache();
-
+       Teste tst = new Teste();
+       tst.init();
+// MemoriaCache memoria  = new MemoriaCache();
         // memoryTrace = "0,1032,1,1033,8,9,1033,2048,2047,2046,16,1033";
 
         /*
@@ -59,20 +68,20 @@ public class Teste {
          for (int i = 0; i < vetMemory.length; i++) {       
          System.out.println(vetMemory[i]);
          }
+         
+         int[] vetNum = {0, 1, 2, 3};
+         int num = 6;
+
+         for (int i = 0; i < vetNum.length; i++) {
+         System.out.print("Valor " + vetNum[i] + ", ");
+         }
+
+         inserirLRU(vetNum, num);
+         System.out.println("\n");
+
+         for (int i = 0; i < vetNum.length; i++) {
+         System.out.print("Valor " + vetNum[i] + ", ");
+         }
          */
-        int[] vetNum = {0, 1, 2, 3};
-        int num = 6;
-
-        for (int i = 0; i < vetNum.length; i++) {
-            System.out.print("Valor " + vetNum[i] + ", ");
-        }
-
-        inserirLRU(vetNum, num);
-        System.out.println("\n");
-
-        for (int i = 0; i < vetNum.length; i++) {
-            System.out.print("Valor " + vetNum[i] + ", ");
-        }
-
     }
 }

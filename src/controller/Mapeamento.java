@@ -240,11 +240,13 @@ public class Mapeamento {
                 if (map0 == 4) {
                     if (countMissHitAssoc(tabela, conversor.binarioToString(vetor[i])) == true) {
                         //countHit += 1;
-                        aplicaLRU(vetor, vetor[i]);
+                        aplicaLRU(vetor, vetor[i], i);
+                        countHit += 1;
                         map0 = 4;
                     } else {
                         //countMiss += 1;
-                        aplicaLRU(vetor, vetor[i]);
+                        aplicaLRU(vetor, vetor[i], i);
+                        countHit += 1;
                         setValorMapeamentoAssoc(vetor[i], map0, tabela);
                         map0 = 3;
                     }
@@ -286,27 +288,52 @@ public class Mapeamento {
         }
     }
 
-    public String[] aplicaLRU(String[] vetNum, String strNum) {
+    public void mapeamentoTotalmenteAssociativaLRU(TelaPrincipal tela) {
+        JTable tabela = setValorTabela(tela);
+        String[] vetor = setValorVetor(tela);
+        int j = 4;
+        for (int i = 0; i < vetor.length; i++) {
+            vetor[i] = conversor.alteraTamanhoPalavra(vetor[i]);
+            if (j >= 0) {
+
+                if (countMissHitAssoc(tabela, conversor.binarioToString(vetor[i])) == true) {
+                    aplicaLRU(vetor, vetor[i], i);
+                    countHit += 1;
+                } else {
+                    aplicaLRU(vetor, vetor[i], i);
+                    countMiss += 1;
+                    setValorMapeamentoAssoc(vetor[i], j, tabela);
+                    j--;
+                }
+            }
+
+            if (j == 0) {
+                j = 4;
+            }
+            tela.setjTable1(tabela);
+        }
+
+    }
+
+    public String[] aplicaLRU(String[] vetNum, String strNum, int posicao) {
         boolean emMemoria = false;
 
-        for (int i = 0; i < vetNum.length; i++) {
-            if (strNum.equalsIgnoreCase(vetNum[i])) {
+        if (strNum.equalsIgnoreCase(vetNum[posicao])) {
 
-                System.out.println("Valor já na memória -- HIT");
-                emMemoria = true;
-                String aux;
-                int pos = i;
+            System.out.println("Valor já na memória -- HIT");
+            emMemoria = true;
+            String aux;
+            int pos = posicao;
 
-                System.out.println("Posição encontrada " + pos);
+            System.out.println("Posição encontrada " + pos);
 
-                aux = vetNum[0];
+            aux = vetNum[0];
 
-                for (int j = pos; j > 0; j--) {
-                    vetNum[j] = vetNum[j - 1];
-                }
-                vetNum[0] = strNum;
-                countHit += 1;
+            for (int j = pos; j > 0; j--) {
+                vetNum[j] = vetNum[j - 1];
             }
+            vetNum[0] = strNum;
+
         }
 
         if (emMemoria == false) {
@@ -317,7 +344,6 @@ public class Mapeamento {
                 vetNum[j] = vetNum[j - 1];
             }
             vetNum[0] = strNum;
-            countMiss += 1;
 
         }
         return vetNum;
