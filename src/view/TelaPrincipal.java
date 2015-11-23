@@ -27,22 +27,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
     int i = 0, j = 4;
     int map0 = 4;
     int map1 = 2;
-
-    public int getMap0() {
-        return map0;
-    }
-
-    public void setMap0(int map0) {
-        this.map0 = map0;
-    }
-
-    public int getMap1() {
-        return map1;
-    }
-
-    public void setMap1(int map1) {
-        this.map1 = map1;
-    }
     
     
 
@@ -521,6 +505,22 @@ public class TelaPrincipal extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    public int getMap0() {
+        return map0;
+    }
+
+    public void setMap0(int map0) {
+        this.map0 = map0;
+    }
+
+    public int getMap1() {
+        return map1;
+    }
+
+    public void setMap1(int map1) {
+        this.map1 = map1;
+    }
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         limparTabela();

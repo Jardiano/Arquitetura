@@ -228,7 +228,11 @@ public class Mapeamento {
                     setValorMapeamentoAssoc(vetor[i], j, tabela);
                     j--;
                 }
+
             }
+             if (j == 0) {
+                    j = 4;
+                }
 
             tela.setjTable1(tabela);
         } else {
@@ -294,12 +298,12 @@ public class Mapeamento {
         }
     }
 
-    public void mapeamentoAssociativaConjunto(TelaPrincipal tela, int i,int map0,int map1) {
+    public void mapeamentoAssociativaConjunto(TelaPrincipal tela, int i, int map0, int map1) {
         JTable tabela = setValorTabela(tela);
         String[] vetor = setValorVetor(tela);
-        
+
         if (i < vetor.length) {
-        vetor[i] = conversor.alteraTamanhoPalavra(vetor[i]);
+            vetor[i] = conversor.alteraTamanhoPalavra(vetor[i]);
 
             if (vetor[i].endsWith("0")) {
                 if (map0 == 4) {
@@ -373,14 +377,10 @@ public class Mapeamento {
             if (vetor[i].endsWith("0")) {
                 if (map0 == 4) {
                     if (countMissHitAssoc(tabela, conversor.binarioToString(vetor[i])) == true) {
-                        //countHit += 1;
-                        aplicaLRU(vetor, vetor[i], i);
                         countHit += 1;
                         map0 = 4;
                     } else {
-                        //countMiss += 1;
-                        aplicaLRU(vetor, vetor[i], i);
-                        countHit += 1;
+                        countMiss += 1;
                         setValorMapeamentoAssoc(vetor[i], map0, tabela);
                         map0 = 3;
                     }
@@ -431,10 +431,8 @@ public class Mapeamento {
             if (j >= 0) {
 
                 if (countMissHitAssoc(tabela, conversor.binarioToString(vetor[i])) == true) {
-                    aplicaLRU(vetor, vetor[i], i);
                     countHit += 1;
                 } else {
-                    aplicaLRU(vetor, vetor[i], i);
                     countMiss += 1;
                     setValorMapeamentoAssoc(vetor[i], j, tabela);
                     j--;
@@ -452,23 +450,29 @@ public class Mapeamento {
     public String[] aplicaLRU(String[] vetNum, String strNum, int posicao) {
         boolean emMemoria = false;
 
-        if (strNum.equalsIgnoreCase(vetNum[posicao])) {
+        System.out.println("Valor já na memória -- HIT");
+        emMemoria = true;
+        String aux;
+        int pos = posicao;
+        String[] vetTeste = new String[4];
+        System.out.println("Posição encontrada " + pos);
+        vetTeste[0] = vetNum[0];
+        vetTeste[1] = vetNum[1];
+        vetTeste[1] = vetNum[2];
+        vetTeste[3] = vetNum[3];
 
-            System.out.println("Valor já na memória -- HIT");
-            emMemoria = true;
-            String aux;
-            int pos = posicao;
+        aux = vetNum[0];
 
-            System.out.println("Posição encontrada " + pos);
+        for (int j = pos; j > 0; j--) {
+            if (strNum.equalsIgnoreCase(vetNum[posicao])) {
+                aux = vetNum[0];
+                for (int i = j; i >= 0; i--) {
+                    vetNum[j] = vetNum[i - 1];
+                }
 
-            aux = vetNum[0];
-
-            for (int j = pos; j > 0; j--) {
-                vetNum[j] = vetNum[j - 1];
             }
-            vetNum[0] = strNum;
-
         }
+        vetNum[0] = strNum;
 
         if (emMemoria == false) {
 
